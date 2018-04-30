@@ -16,22 +16,15 @@ import java.util.logging.Logger;
 
 public class Programm {
 
-    static boolean beendet = false;
+    
 
     public void Start(String Hauptwort, String NomenDatei, String VerbenDatei) {
-        Random random = new Random();
-        while(!beendet){
-        System.out.print("Start");
         
-        try {
-            Thread.sleep(random.nextInt(5000));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Programm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        System.out.print("Start");
         String Wort2 = this.gibZufallsWort(NomenDatei, this.gibLänge(NomenDatei));
         String Wort3 = this.gibZufallsWort(VerbenDatei, this.gibLänge(VerbenDatei));
         Suchanfrage(Hauptwort, Wort3, Wort2);
-        }
+        
 
     }
 
