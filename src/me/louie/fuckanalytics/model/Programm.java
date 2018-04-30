@@ -9,19 +9,29 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Programm {
 
     static boolean beendet = false;
 
     public void Start(String Hauptwort, String NomenDatei, String VerbenDatei) {
-
-        String Wort2;
-        String Wort3;
-        Wort2 = this.gibZufallsWort(NomenDatei, this.gibLänge(NomenDatei));
-        Wort3 = this.gibZufallsWort(VerbenDatei, this.gibLänge(VerbenDatei));
-
+        Random random = new Random();
+        while(!beendet){
+        System.out.print("Start");
+        
+        try {
+            Thread.sleep(random.nextInt(5000));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Programm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String Wort2 = this.gibZufallsWort(NomenDatei, this.gibLänge(NomenDatei));
+        String Wort3 = this.gibZufallsWort(VerbenDatei, this.gibLänge(VerbenDatei));
         Suchanfrage(Hauptwort, Wort3, Wort2);
+        }
 
     }
 
@@ -109,7 +119,6 @@ public class Programm {
      *
      * @param dateiname
      */
-
     public void leseDateien(String dateiname) {
         File file = new File(dateiname);
         BufferedReader in = null;
