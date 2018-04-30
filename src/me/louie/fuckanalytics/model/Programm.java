@@ -15,24 +15,13 @@ public class Programm {
     static boolean beendet = false;
 
     public void Start(String Hauptwort, String NomenDatei, String VerbenDatei) {
-        String  Wort2;
-        String  Wort3;        
+
+        String Wort2;
+        String Wort3;
         Wort2 = this.gibZufallsWort(NomenDatei, this.gibLänge(NomenDatei));
         Wort3 = this.gibZufallsWort(VerbenDatei, this.gibLänge(VerbenDatei));
-        
-        Suchanfrage(Hauptwort,Wort3,Wort2);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        Suchanfrage(Hauptwort, Wort3, Wort2);
 
     }
 
@@ -85,35 +74,56 @@ public class Programm {
         }
 
     }
+
     /**
-     * Gibt ein Zufälliges Wort aus der Datei zurück.Die Länge der Datei muss übergeben werden.
+     * Gibt ein Zufälliges Wort aus der Datei zurück.Die Länge der Datei muss
+     * übergeben werden.
+     *
      * @param dateiname
      * @param DateiLänge
-     * @return 
+     * @return
      */
-
     public String gibZufallsWort(String dateiname, int DateiLänge) {
         Random ran = new Random();
-        int RandomZahl = ran.nextInt(DateiLänge-1);
+        int RandomZahl = ran.nextInt(DateiLänge - 1);
         File file = new File(dateiname);
         BufferedReader in = null;
+        String zeile = null;
         try {
             in = new BufferedReader(new FileReader(dateiname));
-            String zeile = null;
             for (int i = 0; i < RandomZahl; i++) {
-                if (i == RandomZahl) {
-                    zeile = in.readLine();
-                }
                 in.readLine();
             }
-            return zeile;
+            zeile = in.readLine();
 
         } catch (IOException e) {
             e.printStackTrace();
 
         }
 
-        return null;
+        return zeile;
+    }
+
+    /**
+     * Gibt den Inhalt der gesamten Datei aus.
+     *
+     * @param dateiname
+     */
+
+    public void leseDateien(String dateiname) {
+        File file = new File(dateiname);
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(dateiname));
+            String zeile = null;
+            while ((zeile = in.readLine()) != null) {
+                System.out.println(zeile);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
     }
 
 }
