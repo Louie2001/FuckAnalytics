@@ -16,15 +16,11 @@ import java.util.logging.Logger;
 
 public class Programm {
 
-    
-
     public void Start(String Hauptwort, String NomenDatei, String VerbenDatei) {
-        
-        System.out.print("Start");
+
         String Wort2 = this.gibZufallsWort(NomenDatei, this.gibLänge(NomenDatei));
         String Wort3 = this.gibZufallsWort(VerbenDatei, this.gibLänge(VerbenDatei));
         Suchanfrage(Hauptwort, Wort3, Wort2);
-        
 
     }
 

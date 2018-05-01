@@ -107,13 +107,14 @@ public class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BStopActionPerformed
+        TAAusgabe.append("STOP\n");
         Var.programmThread.kill();
     }//GEN-LAST:event_BStopActionPerformed
 
     private void BStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BStartActionPerformed
 
         if (RBKatzen.isEnabled()) {
-            
+            TAAusgabe.append("START\n");
             Var.programmThread.setParameters("Katzen", "KatzenVerben.txt", "KatzenNomen.txt");
             Var.programmThread.start();
 
@@ -121,7 +122,7 @@ public class Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_BStartActionPerformed
 
     private void RBKatzenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBKatzenActionPerformed
-        TAAusgabe.append("Katzen ausgewählt");
+        TAAusgabe.append("Katzen ausgewählt\n");
     }//GEN-LAST:event_RBKatzenActionPerformed
 
     /**
