@@ -18,10 +18,10 @@ public class Var {
      * Gibt in millisekunden an wie oft eine Seite geöffnet wird.(Mindest-Wert)
      */
 
-    public static int SiteDelay_Min;
+    public static int SiteDelay_Min = 1000;
     /**
      * Gibt in millisekunden an wie oft eine Seite geöffnet wird.(Höchst-Wert)
      */
 
-    public static int SiteDelay_Max;
+    public static int SiteDelay_Max = 10000;
 }

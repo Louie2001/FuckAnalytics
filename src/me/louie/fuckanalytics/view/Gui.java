@@ -46,7 +46,6 @@ public class Gui extends javax.swing.JFrame {
         setTitle("Gui");
         setBounds(new java.awt.Rectangle(0, 0, 400, 400));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(400, 400));
         setResizable(false);
         setSize(new java.awt.Dimension(400, 400));
 
@@ -102,18 +101,12 @@ public class Gui extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(SPAusgabe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JLMax)
-                            .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JLMax)
+                    .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -135,6 +128,7 @@ public class Gui extends javax.swing.JFrame {
                         .addGap(89, 89, 89)
                         .addComponent(jButton1)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(SPAusgabe)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,8 +151,9 @@ public class Gui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(SPAusgabe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(SPAusgabe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -170,12 +165,12 @@ public class Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_BStopActionPerformed
 
     private void BStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BStartActionPerformed
-
+        
         if (RBKatzen.isEnabled()) {
             TAAusgabe.append("START\n");
             Var.programmThread.setParameters("Katzen", "KatzenVerben.txt", "KatzenNomen.txt");
             Var.programmThread.start();
-
+            
         }
     }//GEN-LAST:event_BStartActionPerformed
 
@@ -188,7 +183,24 @@ public class Gui extends javax.swing.JFrame {
     }//GEN-LAST:event_TFMinDelayAncestorResized
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        //Wenn die Textfelder nicht leer sind.
+        if (!TFMinDelay.getText().equalsIgnoreCase("") && !TFMaxDelay.getText().equalsIgnoreCase("")) {
+            //Wenn der MinimalWert unter  dem Maximalwert steht.
+            if (Integer.parseInt(TFMinDelay.getText()) < Integer.parseInt(TFMaxDelay.getText())) {
+                Var.SiteDelay_Min = Integer.parseInt(TFMinDelay.getText());
+                Var.SiteDelay_Max = Integer.parseInt(TFMaxDelay.getText());
+                TAAusgabe.append("Minimal-Delay-Wert gesetzt: " + Var.SiteDelay_Min + "\n");
+                TAAusgabe.append("Maximal-Delay-Wert gesetzt: " + Var.SiteDelay_Max + "\n");
+                if(Var.SiteDelay_Min+Var.SiteDelay_Max<3000){
+                    TAAusgabe.append("[WARNUNG] Delay-Werte extrem niedrig!\n");
+                }
+            } else {
+                TAAusgabe.append("Maximal-Wert ist nicht über den Minimal-Wert!\n");
+            }
+            
+        } else {
+            TAAusgabe.append("Kein Max- oder Min-Wert gefunden!\n");
+        }
 //TODO
     }//GEN-LAST:event_jButton1ActionPerformed
 
