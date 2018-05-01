@@ -22,7 +22,7 @@ public class ProgrammThread extends Thread {
         while(running){
         Random random = new Random();
         try {
-            Thread.sleep(random.nextInt(5000));
+            Thread.sleep(random.nextInt(Var.SiteDelay_Max-Var.SiteDelay_Min)+Var.SiteDelay_Min);
         } catch (InterruptedException ex) {
             Logger.getLogger(Programm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,6 +39,13 @@ public class ProgrammThread extends Thread {
         
         
     }
+    
+    /**Setzt die Keywords für die spätere Ausführung.
+     * 
+     * @param Hauptwort
+     * @param VerbenDatei
+     * @param NomenDatei 
+     */
     
     
     public void setParameters(String Hauptwort,String VerbenDatei,String NomenDatei){
