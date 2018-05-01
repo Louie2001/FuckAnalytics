@@ -19,4 +19,22 @@ public class Var {
      */
 
     public static int SiteDelay_Max = 10000;
+    /**
+     * Gibt an ob die Fenster automatisch geschlossen werden sollen.
+     */
+    public static boolean AutoClose = false;
+    
+    /**
+     * Gibt an wo der CLOSE-Button des Browsers ist.(X-Koordinate)
+     */
+    
+    public static int RobotCloseX = 1980;
+    /**
+     * Gibt an wo der CLOSE-Button des Browsers ist.(Y-Koordinate)
+     */
+    public static int RobotCloseY = 5;
+    /**
+     * Gibt an wie viele Fenster sich öffnen sollen bevor der Browser geschlossen wird.
+     */
+    public static int RunsTillClose = 10;
 }
