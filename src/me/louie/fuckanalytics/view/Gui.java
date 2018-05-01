@@ -6,6 +6,7 @@
 package me.louie.fuckanalytics.view;
 
 import me.louie.fuckanalytics.model.ProgrammThread;
+import me.louie.fuckanalytics.model.ThreadManager;
 import me.louie.fuckanalytics.var.Var;
 
 /**
@@ -161,15 +162,17 @@ public class Gui extends javax.swing.JFrame {
 
     private void BStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BStopActionPerformed
         TAAusgabe.append("STOP\n");
-        Var.programmThread.kill();
+        ThreadManager.aktThread.kill();
     }//GEN-LAST:event_BStopActionPerformed
 
     private void BStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BStartActionPerformed
         
         if (RBKatzen.isEnabled()) {
             TAAusgabe.append("START\n");
-            Var.programmThread.setParameters("Katzen", "KatzenVerben.txt", "KatzenNomen.txt");
-            Var.programmThread.start();
+            ThreadManager.newThread();
+            ThreadManager.aktThread.setParameters("Katzen", "KatzenVerben.txt", "KatzenNomen.txt");
+            ThreadManager.aktThread.start();
+            
             
         }
     }//GEN-LAST:event_BStartActionPerformed
