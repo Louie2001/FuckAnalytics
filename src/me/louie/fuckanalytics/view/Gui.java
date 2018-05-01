@@ -42,6 +42,7 @@ public class Gui extends javax.swing.JFrame {
         JLMin = new javax.swing.JLabel();
         JLMax = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        RBAutoClose = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gui");
@@ -96,18 +97,17 @@ public class Gui extends javax.swing.JFrame {
             }
         });
 
+        RBAutoClose.setText("AutoClose");
+        RBAutoClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBAutoCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JLMax)
-                    .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -117,19 +117,30 @@ public class Gui extends javax.swing.JFrame {
                         .addGap(103, 103, 103)
                         .addComponent(JLDelay))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFMinDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(JLMin)))
-                        .addGap(18, 18, 18)
-                        .addComponent(TFMaxDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jButton1)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(SPAusgabe)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JLMax)
+                    .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TFMinDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(JLMin)))
+                .addGap(18, 18, 18)
+                .addComponent(TFMaxDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RBAutoClose)
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,14 +150,15 @@ public class Gui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TFMinDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFMaxDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TFMaxDelay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RBAutoClose))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLMin)
                     .addComponent(JLMax))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(RBKatzen)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -167,18 +179,29 @@ public class Gui extends javax.swing.JFrame {
 
     private void BStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BStartActionPerformed
         
-        if (RBKatzen.isEnabled()) {
+        if (RBKatzen.isSelected()) {
             TAAusgabe.append("START\n");
             ThreadManager.newThread();
             ThreadManager.aktThread.setParameters("Katzen", "KatzenVerben.txt", "KatzenNomen.txt");
+            
+            if(RBAutoClose.isSelected()){
+                TAAusgabe.append("CloseBot gestartet.\n");
+                ThreadManager.aktThread.createRobot();
+                
+            }
             ThreadManager.aktThread.start();
+            
             
             
         }
     }//GEN-LAST:event_BStartActionPerformed
 
     private void RBKatzenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBKatzenActionPerformed
-        TAAusgabe.append("Katzen ausgewählt\n");
+       if(!RBKatzen.isSelected()){
+            TAAusgabe.append("Katzen abgewählt.\n");
+        }else{
+            TAAusgabe.append("Katzen ausgewählt.\n");
+        }
     }//GEN-LAST:event_RBKatzenActionPerformed
 
     private void TFMinDelayAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_TFMinDelayAncestorResized
@@ -206,6 +229,18 @@ public class Gui extends javax.swing.JFrame {
         }
 //TODO
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void RBAutoCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBAutoCloseActionPerformed
+        if(!RBAutoClose.isSelected()){
+            TAAusgabe.append("AutoClose abgewählt.\n");
+        }else{
+            TAAusgabe.append("AutoClose ausgewählt.\n");
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_RBAutoCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,6 +283,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel JLDelay;
     private javax.swing.JLabel JLMax;
     private javax.swing.JLabel JLMin;
+    private javax.swing.JRadioButton RBAutoClose;
     private javax.swing.JRadioButton RBKatzen;
     private javax.swing.JScrollPane SPAusgabe;
     private javax.swing.JTextArea TAAusgabe;
