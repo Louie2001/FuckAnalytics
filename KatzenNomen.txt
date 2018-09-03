@@ -8,5 +8,13 @@ Halsband
 Floh-Schutz
 Arzt
 Brekkies
+Gift
+Köder
+Allergene
+Klebeband
+Käfig
+Zwinger
+Elektrohalsband
+
 
 

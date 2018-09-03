@@ -43,9 +43,10 @@ public class Gui extends javax.swing.JFrame {
         JLMax = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         RBAutoClose = new javax.swing.JRadioButton();
+        RBAutoClick = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Gui");
+        setTitle("FuckAnalytics");
         setBounds(new java.awt.Rectangle(0, 0, 400, 400));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -104,6 +105,8 @@ public class Gui extends javax.swing.JFrame {
             }
         });
 
+        RBAutoClick.setText("AutoClick");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,24 +125,27 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(SPAusgabe)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JLMax)
-                    .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TFMinDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(JLMin)))
-                .addGap(18, 18, 18)
-                .addComponent(TFMaxDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(RBAutoClose)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(JLMax)
+                            .addComponent(BStop, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BStart, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RBAutoClick, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TFMinDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(JLMin)))
+                        .addGap(18, 18, 18)
+                        .addComponent(TFMaxDelay, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(RBAutoClose)))
                 .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
@@ -155,10 +161,11 @@ public class Gui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLMin)
-                    .addComponent(JLMax))
+                    .addComponent(JLMax)
+                    .addComponent(RBAutoClick))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(RBKatzen)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,10 +190,16 @@ public class Gui extends javax.swing.JFrame {
             TAAusgabe.append("START\n");
             ThreadManager.newThread();
             ThreadManager.aktThread.setParameters("Katzen", "KatzenVerben.txt", "KatzenNomen.txt");
-            
+            ThreadManager.aktThread.createRobot();
             if(RBAutoClose.isSelected()){
                 TAAusgabe.append("CloseBot gestartet.\n");
-                ThreadManager.aktThread.createRobot();
+                ThreadManager.aktThread.setAutoClose(true);
+                
+                
+            }
+            if(RBAutoClick.isSelected()){
+                TAAusgabe.append("ClickBot gestartet \n");
+                ThreadManager.aktThread.setAutoClick(true);
                 
             }
             ThreadManager.aktThread.start();
@@ -283,6 +296,7 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JLabel JLDelay;
     private javax.swing.JLabel JLMax;
     private javax.swing.JLabel JLMin;
+    private javax.swing.JRadioButton RBAutoClick;
     private javax.swing.JRadioButton RBAutoClose;
     private javax.swing.JRadioButton RBKatzen;
     private javax.swing.JScrollPane SPAusgabe;
